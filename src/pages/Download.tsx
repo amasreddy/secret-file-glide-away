@@ -19,8 +19,9 @@ const DownloadPage = () => {
   const { toast } = useToast();
 
   const getEncryptionParams = () => {
-    const hash = window.location.hash.substring(1);
-    const params = new URLSearchParams(hash);
+    const hash = window.location.hash; // e.g., #/download/some-id?key=...&iv=...
+    const searchPart = hash.split('?')[1] || '';
+    const params = new URLSearchParams(searchPart);
     const keyHex = params.get('key');
     const ivHex = params.get('iv');
     

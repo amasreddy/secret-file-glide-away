@@ -47,7 +47,7 @@ export const UploadArea = ({ onUploadStart, onUploadProgress, onUploadComplete }
       // Generate share URL with encryption key
       const keyString = Array.from(key).map(b => b.toString(16).padStart(2, '0')).join('');
       const ivString = Array.from(iv).map(b => b.toString(16).padStart(2, '0')).join('');
-      const shareUrl = `${window.location.origin}/download/${fileId}#key=${keyString}&iv=${ivString}`;
+      const shareUrl = `${window.location.origin}/#/download/${fileId}?key=${keyString}&iv=${ivString}`;
       
       onUploadProgress(100);
       onUploadComplete(shareUrl);
