@@ -1,3 +1,4 @@
+
 // Backend Server Code (Node.js + Express)
 // Save this as server.js and run separately from your React app
 // 
@@ -24,7 +25,8 @@ fs.mkdir(UPLOADS_DIR, { recursive: true }).catch(console.error);
 app.use(helmet());
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-  credentials: true
+  credentials: true,
+  exposedHeaders: ['X-Original-Filename', 'X-Original-Mimetype'],
 }));
 
 // Rate limiting
