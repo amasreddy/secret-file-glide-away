@@ -1,8 +1,7 @@
-
 // API utilities for file upload/download
-// Replace BASE_URL with our Railway deployment URL
+// Replace BASE_URL with our Render deployment URL
 
-const BASE_URL = 'https://your-app-name.railway.app'; // 👈 REPLACE THIS with your actual Railway URL
+const BASE_URL = 'https://your-app-name.onrender.com'; // 👈 REPLACE THIS with your actual Render URL
 
 export const uploadFile = async (
   encryptedData: ArrayBuffer,
