@@ -1,7 +1,8 @@
+
 // API utilities for file upload/download
 // Replace BASE_URL with our Render deployment URL
 
-const BASE_URL = 'https://your-app-name.onrender.com'; // 👈 REPLACE THIS with your actual Render URL
+const BASE_URL = 'https://my-secureshare-backend.onrender.com'; // 👈 This now points to your live backend
 
 export const uploadFile = async (
   encryptedData: ArrayBuffer,
