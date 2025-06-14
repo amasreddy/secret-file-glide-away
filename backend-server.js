@@ -1,4 +1,3 @@
-
 // Backend Server Code (Node.js + Express)
 // Save this as server.js and run separately from your React app
 // 
@@ -48,8 +47,8 @@ const storage = multer.diskStorage({
     cb(null, UPLOADS_DIR);
   },
   filename: function (req, file, cb) {
-    // Generate unique filename
-    const uniqueId = crypto.randomUUID();
+    // Generate unique filename using a more compatible method
+    const uniqueId = crypto.randomBytes(16).toString('hex');
     cb(null, uniqueId);
   }
 });
