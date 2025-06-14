@@ -1,8 +1,8 @@
 
 // API utilities for file upload/download
-// Note: Replace BASE_URL with your actual backend URL
+// Replace BASE_URL with our Railway deployment URL
 
-const BASE_URL = 'http://localhost:3001'; // Change this to your backend URL
+const BASE_URL = 'https://your-app-name.railway.app'; // 👈 REPLACE THIS with your actual Railway URL
 
 export const uploadFile = async (
   encryptedData: ArrayBuffer,
