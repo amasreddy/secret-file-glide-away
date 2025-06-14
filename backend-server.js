@@ -1,4 +1,3 @@
-
 // Backend Server Code (Node.js + Express)
 // Save this as server.js and run separately from your React app
 // 
@@ -76,10 +75,12 @@ app.post('/api/upload', uploadLimiter, upload.single('file'), async (req, res) =
 
     const fileId = req.file.filename;
     const originalName = req.body.originalName || 'unknown';
+    const mimeType = req.body.mimeType || 'application/octet-stream';
     
     // Store metadata
     fileMetadata.set(fileId, {
       originalName,
+      mimeType,
       uploadDate: new Date(),
       filePath: req.file.path,
       size: req.file.size
@@ -128,6 +129,7 @@ app.get('/api/download/:fileId', downloadLimiter, async (req, res) => {
 
     // Set headers
     res.setHeader('X-Original-Filename', metadata.originalName);
+    res.setHeader('X-Original-Mimetype', metadata.mimeType);
     res.setHeader('Content-Type', 'application/octet-stream');
     res.setHeader('Content-Disposition', `attachment; filename="${metadata.originalName}"`);
 
@@ -161,7 +163,8 @@ app.get('/api/info/:fileId', async (req, res) => {
     res.json({
       originalName: metadata.originalName,
       uploadDate: metadata.uploadDate,
-      size: metadata.size
+      size: metadata.size,
+      mimeType: metadata.mimeType
     });
 
   } catch (error) {

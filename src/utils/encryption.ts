@@ -1,4 +1,3 @@
-
 // Web Crypto API utilities for end-to-end encryption
 
 export const generateKey = async (): Promise<Uint8Array> => {
@@ -51,7 +50,8 @@ export const encryptFile = async (file: File): Promise<{
 export const decryptFile = async (
   encryptedData: ArrayBuffer,
   key: Uint8Array,
-  iv: Uint8Array
+  iv: Uint8Array,
+  mimeType: string
 ): Promise<Blob> => {
   // Import key for Web Crypto API
   const cryptoKey = await crypto.subtle.importKey(
@@ -72,6 +72,6 @@ export const decryptFile = async (
     encryptedData
   );
   
-  // Return as Blob
-  return new Blob([decryptedData]);
+  // Return as Blob with the correct MIME type
+  return new Blob([decryptedData], { type: mimeType });
 };

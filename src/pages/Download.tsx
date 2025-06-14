@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -46,7 +45,7 @@ const DownloadPage = () => {
       const { key, iv } = getEncryptionParams();
       
       // Download encrypted file
-      const { data, filename } = await downloadFile(fileId, (progress) => {
+      const { data, filename, mimeType } = await downloadFile(fileId, (progress) => {
         setProgress(progress * 0.7); // 0% to 70%
       });
       
@@ -55,7 +54,7 @@ const DownloadPage = () => {
       setProgress(75);
       
       // Decrypt file
-      const decrypted = await decryptFile(data, key, iv);
+      const decrypted = await decryptFile(data, key, iv, mimeType);
       setProgress(95);
       
       setDecryptedBlob(decrypted);

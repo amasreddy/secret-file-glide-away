@@ -1,4 +1,3 @@
-
 // API utilities for file upload/download
 // Replace BASE_URL with our Render deployment URL
 
@@ -7,6 +6,7 @@ const BASE_URL = 'https://my-secureshare-backend.onrender.com'; // 👈 This now
 export const uploadFile = async (
   encryptedData: ArrayBuffer,
   originalFileName: string,
+  mimeType: string,
   onProgress?: (progress: number) => void
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -17,6 +17,7 @@ export const uploadFile = async (
     const blob = new Blob([encryptedData]);
     formData.append('file', blob, `encrypted_${originalFileName}`);
     formData.append('originalName', originalFileName);
+    formData.append('mimeType', mimeType);
     
     xhr.upload.onprogress = (event) => {
       if (event.lengthComputable && onProgress) {
@@ -46,7 +47,7 @@ export const uploadFile = async (
 export const downloadFile = async (
   fileId: string,
   onProgress?: (progress: number) => void
-): Promise<{ data: ArrayBuffer; filename: string }> => {
+): Promise<{ data: ArrayBuffer; filename: string; mimeType: string }> => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'arraybuffer';
@@ -61,9 +62,11 @@ export const downloadFile = async (
     xhr.onload = () => {
       if (xhr.status === 200) {
         const filename = xhr.getResponseHeader('X-Original-Filename') || 'download';
+        const mimeType = xhr.getResponseHeader('X-Original-Mimetype') || 'application/octet-stream';
         resolve({
           data: xhr.response,
-          filename: filename
+          filename: filename,
+          mimeType: mimeType
         });
       } else if (xhr.status === 404) {
         reject(new Error('File not found or has expired'));

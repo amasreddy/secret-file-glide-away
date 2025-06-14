@@ -1,4 +1,3 @@
-
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button } from '@/components/ui/button';
@@ -38,7 +37,7 @@ export const UploadArea = ({ onUploadStart, onUploadProgress, onUploadComplete }
       onUploadProgress(30);
       
       // Upload encrypted file
-      const fileId = await uploadFile(encryptedData, file.name, (progress) => {
+      const fileId = await uploadFile(encryptedData, file.name, file.type, (progress) => {
         onUploadProgress(30 + (progress * 0.6)); // 30% to 90%
       });
       
